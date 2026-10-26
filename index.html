@@ -17,41 +17,44 @@
 :root{--bg:#07070a;--sf:#0e0e13;--bd:rgba(255,255,255,.09);--mu:rgba(255,255,255,.62);--r:20px;--e:cubic-bezier(.16,1,.3,1)}
 html{scroll-behavior:smooth;scroll-padding-top:96px;color-scheme:dark}
 body{background:var(--bg);color:#f4f4f6;font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{display:block;max-width:100%}button,input{font:inherit;color:inherit}button{background:none;border:0;cursor:pointer;touch-action:manipulation}a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}button,input,textarea{font:inherit;color:inherit}button{background:none;border:0;cursor:pointer;touch-action:manipulation}a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid #fff;outline-offset:3px}
 .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
 .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
 .d{font-family:Syne,sans-serif;letter-spacing:-.02em}
 .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}.i.f{fill:currentColor;stroke:none}
-#amb{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.26;background:radial-gradient(60% 50% at 80% 8%,var(--a),transparent),radial-gradient(50% 50% at 8% 92%,var(--b),transparent);transition:--a 1.4s ease,--b 1.4s ease}
+
+/* Оптимизированный GPU-слой фоновой подсветки */
+#amb{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.24;background:radial-gradient(55% 45% at 80% 10%,var(--a),transparent),radial-gradient(45% 45% at 10% 90%,var(--b),transparent);transition:--a 1.2s ease,--b 1.2s ease;will-change: opacity;transform:translateZ(0);contain:strict}
 
 /* Кнопки */
-.btn{height:52px;padding:0 28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;border:1px solid transparent;white-space:nowrap;transition:transform .4s var(--e),background .3s,border-color .3s,color .3s,opacity .3s}
+.btn{height:52px;padding:0 28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;border:1px solid transparent;white-space:nowrap;transition:transform .35s var(--e),background .25s,border-color .25s,color .25s,opacity .25s}
 .btn.sm{height:40px;padding:0 18px;font-size:13px}.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0)}
 .btn:disabled,.g-btn:disabled{opacity:.55;pointer-events:none}
 .btn.p{background:#fff;color:#000}.btn.p:hover{background:#e8e8ec}
-.btn.o{background:rgba(255,255,255,.06);border-color:var(--bd);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.btn.o:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.btn.o{background:rgba(255,255,255,.06);border-color:var(--bd)}.btn.o:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
 .btn.fav-on{background:rgba(244,63,94,.16);border-color:rgba(244,63,94,.45);color:#fda4af}
 .btn.fav-on .i{fill:#f43f5e;stroke:#f43f5e}
+.btn.sub-on{background:rgba(16,185,129,.16);border-color:rgba(16,185,129,.45);color:#6ee7b7}
 
-/* Кнопка избранного на карточках */
-.fav-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(10,10,14,.65);border:1px solid var(--bd);color:rgba(255,255,255,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .35s var(--e),background .3s,border-color .3s,color .3s;z-index:3}
-.fav-btn:hover{transform:scale(1.1);background:rgba(24,24,32,.85);border-color:rgba(255,255,255,.3);color:#fff}
-.fav-btn.on{background:rgba(244,63,94,.22);border-color:rgba(244,63,94,.55);color:#f43f5e}
+/* Кнопка избранного на карточках (облегченная для FPS) */
+.fav-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(10,10,14,.78);border:1px solid var(--bd);color:rgba(255,255,255,.85);transition:transform .3s var(--e),background .25s,border-color .25s,color .25s;z-index:3}
+.fav-btn:hover{transform:scale(1.1);background:rgba(24,24,32,.95);border-color:rgba(255,255,255,.3);color:#fff}
+.fav-btn.on{background:rgba(244,63,94,.24);border-color:rgba(244,63,94,.55);color:#f43f5e}
 .fav-btn.on .i{fill:#f43f5e;stroke:#f43f5e}
 
 /* Шапка */
 header{position:fixed;inset:0 0 auto;z-index:40;padding-top:14px}
-.nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 12px 0 22px;border-radius:999px;border:1px solid var(--bd);background:rgba(10,10,14,.45);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);transition:background .4s,border-color .4s}
-.nav.s{background:rgba(10,10,14,.9);border-color:rgba(255,255,255,.14)}
+.nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 12px 0 22px;border-radius:999px;border:1px solid var(--bd);background:rgba(10,10,14,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .3s,border-color .3s;transform:translateZ(0)}
+.nav.s{background:rgba(10,10,14,.92);border-color:rgba(255,255,255,.14)}
 .logo{display:flex;align-items:center;gap:10px;font:800 20px Syne,sans-serif;letter-spacing:-.02em;flex-shrink:0}
 .logo i{width:32px;height:32px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-style:normal;font-size:16px;flex:none}
 .logo b{font-weight:700;color:rgba(255,255,255,.45)}
-.links{display:flex;gap:28px;font-size:14px;color:var(--mu)}.links a{transition:color .3s}.links a:hover{color:#fff}
+.links{display:flex;gap:28px;font-size:14px;color:var(--mu)}.links a{transition:color .25s}.links a:hover{color:#fff}
 .ra{display:flex;align-items:center;gap:10px}
-.sbtn{height:40px;width:220px;padding:0 14px;display:flex;align-items:center;gap:10px;border-radius:999px;border:1px solid var(--bd);background:rgba(255,255,255,.04);color:var(--mu);font-size:13px;transition:background .3s,border-color .3s}
+.sbtn{height:40px;width:220px;padding:0 14px;display:flex;align-items:center;gap:10px;border-radius:999px;border:1px solid var(--bd);background:rgba(255,255,255,.04);color:var(--mu);font-size:13px;transition:background .25s,border-color .25s}
 .sbtn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.22)}.sbtn .t{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ibtn{height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--bd);background:rgba(255,255,255,.04);display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mu);transition:background .3s,border-color .3s,color .3s}
+.ibtn{height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--bd);background:rgba(255,255,255,.04);display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mu);transition:background .25s,border-color .25s,color .25s}
 .ibtn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.24);color:#fff}
 .ibtn .bdg{min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#fff;color:#000;font-size:11px;font-weight:700;display:inline-grid;place-items:center}
 .ibtn .bdg[hidden]{display:none}
@@ -59,9 +62,9 @@ kbd{font:500 11px Inter;padding:2px 8px;border:1px solid var(--bd);border-radius
 
 /* Hero */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:136px 0 88px;overflow:hidden}.hero>.wrap{width:100%;position:relative;z-index:1}
-.bg{position:absolute;inset:0}
-.layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease}
-.layer.on{opacity:.55;animation:kb 14s ease-out}@keyframes kb{from{transform:scale(1.08)}}
+.bg{position:absolute;inset:0;transform:translateZ(0)}
+.layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;will-change:opacity}
+.layer.on{opacity:.55}
 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 4%,rgba(7,7,10,.72) 48%,rgba(7,7,10,.1)),linear-gradient(0deg,var(--bg),transparent 38%,rgba(7,7,10,.55))}
 .hero .g{align-items:center}.hl{grid-column:1/8}.hr{grid-column:9/13}
 .hl>*+*{margin-top:22px}.hl>.acts{margin-top:36px}.hl>.dots{margin-top:48px}
@@ -71,50 +74,50 @@ h1{font:800 clamp(34px,6.5vw,88px)/1.02 Syne,sans-serif;letter-spacing:-.03em;te
 .tag{max-width:520px;font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.78)}
 .meta{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14px;color:var(--mu)}.meta span+span::before{content:"·";margin-right:16px}.rt{color:#fff;font-weight:600}
 .acts{display:flex;flex-wrap:wrap;gap:12px}
-.dots{display:flex;gap:8px;flex-wrap:wrap}.dot{width:32px;height:16px;padding:6px 0;background:rgba(255,255,255,.22) content-box;border-radius:2px;transition:width .5s var(--e),background .4s}.dot.on{width:64px;background:#fff content-box}
+.dots{display:flex;gap:8px;flex-wrap:wrap}.dot{width:32px;height:16px;padding:6px 0;background:rgba(255,255,255,.22) content-box;border-radius:2px;transition:width .4s var(--e),background .3s}.dot.on{width:64px;background:#fff content-box}
 .nxh{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-bottom:16px}
 .nx{display:flex;flex-direction:column;gap:12px}
-.row{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center;padding:10px;text-align:left;border:1px solid var(--bd);border-radius:var(--r);background:rgba(14,14,19,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .4s var(--e),border-color .3s,background .3s}
-.row:hover{transform:translateX(-6px);border-color:rgba(255,255,255,.25);background:rgba(24,24,30,.75)}
+.row{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center;padding:10px;text-align:left;border:1px solid var(--bd);border-radius:var(--r);background:rgba(14,14,19,.78);transition:transform .35s var(--e),border-color .25s,background .25s}
+.row:hover{transform:translateX(-6px);border-color:rgba(255,255,255,.25);background:rgba(24,24,30,.9)}
 .row img{width:120px;height:76px;border-radius:12px;object-fit:cover}.row b{display:block;font:700 14px/1.3 Syne,sans-serif}.row small{color:var(--mu);font-size:12px}.row .rt{font-size:13px;padding-right:6px}
 
-/* Секции */
-.sec{position:relative;z-index:1;padding:110px 0}
+/* Секции (оптимизированы через content-visibility) */
+.sec{position:relative;z-index:1;padding:110px 0;content-visibility:auto;contain-intrinsic-size:1px 800px}
 .sh{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px}.sh .eb{margin-bottom:14px}
 h2{font:700 clamp(28px,4.5vw,54px)/1.06 Syne,sans-serif;letter-spacing:-.02em}
 .sh p{margin-top:14px;color:var(--mu);max-width:480px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--bd);font-size:13px;font-weight:500;color:var(--mu);white-space:nowrap;transition:all .35s var(--e)}
+.chip{height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--bd);font-size:13px;font-weight:500;color:var(--mu);white-space:nowrap;transition:background .25s,color .25s,border-color .25s}
 .chip:hover{color:#fff;border-color:rgba(255,255,255,.3)}.chip.on{background:#fff;color:#000;border-color:#fff}
 .cards{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;min-height:340px;align-content:start}
-.card{grid-column:span 4;position:relative;aspect-ratio:16/11;border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);background:var(--sf);cursor:pointer;transition:transform .6s var(--e),border-color .3s,box-shadow .6s;animation:ci .7s var(--e) backwards;animation-delay:calc(var(--i)*70ms)}
-@keyframes ci{from{opacity:0;transform:translateY(20px) scale(.97)}}
-.card:hover,.card:focus-visible{transform:translateY(-6px);border-color:rgba(255,255,255,.24);box-shadow:0 28px 48px -20px rgba(0,0,0,.9)}
-.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.78;transition:transform 1s var(--e),opacity .5s}.card:hover img{transform:scale(1.06);opacity:1}
-.card::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,7,10,.95),rgba(7,7,10,.08) 62%)}
+.card{grid-column:span 4;position:relative;aspect-ratio:16/11;border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);background:var(--sf);cursor:pointer;contain:layout paint;will-change:transform;transition:transform .45s var(--e),border-color .25s;animation:ci .55s var(--e) backwards;animation-delay:calc(var(--i)*45ms)}
+@keyframes ci{from{opacity:0;transform:translateY(16px)}}
+.card:hover,.card:focus-visible{transform:translateY(-6px);border-color:rgba(255,255,255,.28)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8;transition:transform .7s var(--e),opacity .35s}.card:hover img{transform:scale(1.05);opacity:1}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,7,10,.95),rgba(7,7,10,.08) 62%);pointer-events:none}
 .ci{position:absolute;inset:0;z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:space-between}.ct,.cb{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}.ct{align-items:center}
 .ct-r{display:flex;align-items:center;gap:8px}
-.pill{height:28px;padding:0 12px;display:inline-flex;align-items:center;border-radius:999px;font-size:12px;font-weight:600;background:rgba(10,10,14,.6);border:1px solid var(--bd);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pill{height:28px;padding:0 12px;display:inline-flex;align-items:center;border-radius:999px;font-size:12px;font-weight:600;background:rgba(10,10,14,.78);border:1px solid var(--bd)}
 .cm{font-size:13px;color:var(--mu)}.cb h3{font-size:clamp(18px,2vw,22px);line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pp{width:46px;height:46px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;flex:none;opacity:0;transform:scale(.75);transition:all .5s var(--e)}.card:hover .pp,.card:focus-visible .pp{opacity:1;transform:none}
+.pp{width:46px;height:46px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;flex:none;opacity:0;transform:scale(.8);transition:opacity .35s var(--e),transform .35s var(--e)}.card:hover .pp,.card:focus-visible .pp{opacity:1;transform:none}
 .ft{grid-column:span 4;padding:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--sf)}
 .ft b{display:block;font:700 14px Syne,sans-serif;color:var(--mu);margin-bottom:40px}.ft h3{font:700 22px/1.25 Syne,sans-serif;margin-bottom:12px}.ft p{color:var(--mu);font-size:15px}
 footer{position:relative;z-index:1;border-top:1px solid var(--bd);padding:72px 0 40px}
 .fl{display:grid;gap:12px;align-content:start;font-size:14px;color:var(--mu)}.fl a:hover{color:#fff}.fl h4{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:500;margin-bottom:8px}
 .fb{grid-column:1/7}.fb p{margin-top:16px;color:var(--mu);max-width:320px;font-size:14px}.fl{grid-column:span 2}
 .cp{margin-top:56px;padding-top:24px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13px;color:rgba(255,255,255,.4)}
-.rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s var(--e);transition-delay:calc(var(--d,0)*100ms)}.rv.in{opacity:1;transform:none}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s var(--e);transition-delay:calc(var(--d,0)*80ms)}.rv.in{opacity:1;transform:none}
 
 /* Модальные окна */
-.md{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:rgba(5,5,8,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;overflow-y:auto}.md.open{opacity:1;visibility:visible}
+.md{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:rgba(5,5,8,.84);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;overflow-y:auto}.md.open{opacity:1;visibility:visible}
 .md.pal{place-items:start center;padding-top:10vh}
-.pn{position:relative;z-index:1;width:100%;border-radius:24px;border:1px solid var(--bd);background:#0c0c11;box-shadow:0 40px 80px -20px #000;overflow:hidden;transform:translateY(24px) scale(.97);transition:transform .5s var(--e),max-width .4s var(--e)}.open .pn{transform:none}
+.pn{position:relative;z-index:1;width:100%;border-radius:24px;border:1px solid var(--bd);background:#0c0c11;box-shadow:0 32px 64px -16px #000;overflow:hidden;transform:translateY(18px) scale(.98);transition:transform .4s var(--e)}.open .pn{transform:none}
 .mh{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.xb{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);display:grid;place-items:center;flex:none;transition:background .3s,border-color .3s}.xb:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+.xb{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);display:grid;place-items:center;flex:none;transition:background .25s,border-color .25s}.xb:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
 .pi{display:flex;align-items:center;gap:14px;height:68px;padding:0 22px;border-bottom:1px solid var(--bd)}.pi input{flex:1;height:100%;background:none;border:0;outline:0;font-size:16px;min-width:0}.pi input::placeholder{color:rgba(255,255,255,.35)}
 .ph{padding:18px 22px 8px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu)}
 .pls{padding:8px 12px;max-height:46vh;overflow-y:auto}
-.it{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:10px;border-radius:14px;cursor:pointer;transition:background .2s}.it.sel,.it:hover{background:rgba(255,255,255,.08)}
+.it{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:10px;border-radius:14px;cursor:pointer;transition:background .15s}.it.sel,.it:hover{background:rgba(255,255,255,.08)}
 .it img{width:72px;height:45px;border-radius:8px;object-fit:cover}.it b{display:block;font-size:14px;line-height:1.3}.it small{color:var(--mu);font-size:12px}
 .em{padding:36px 20px;text-align:center;color:var(--mu);font-size:14px}.em b{display:block;color:#fff;font-size:15px;margin-bottom:4px}
 .pf{display:flex;justify-content:space-between;padding:14px 22px;border-top:1px solid var(--bd);font-size:12px;color:rgba(255,255,255,.4)}
@@ -125,21 +128,22 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
 .au h3{font:700 22px Syne,sans-serif}.au p{font-size:13px;color:var(--mu);margin-top:4px}
 .sec-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:#6ee7b7;font-size:11px;font-weight:500;margin-top:8px}
 .fm{display:grid;gap:14px}.fd{display:grid;gap:6px}.fd label{font-size:12px;color:var(--mu)}
-.fd input{height:46px;padding:0 16px;border-radius:12px;border:1px solid var(--bd);background:rgba(255,255,255,.04);outline:0;transition:border-color .3s,background .3s}.fd input:focus{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.07)}
+.fd input{height:46px;padding:0 16px;border-radius:12px;border:1px solid var(--bd);background:rgba(255,255,255,.04);outline:0;transition:border-color .25s,background .25s}.fd input:focus{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.07)}
 .er{min-height:18px;font-size:12px;color:#fca5a5}.fm .btn{width:100%}
 .or-div{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:.1em}
 .or-div::before,.or-div::after{content:"";flex:1;height:1px;background:var(--bd)}
-.g-btn{width:100%;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;gap:12px;font-size:14px;font-weight:600;color:#fff;transition:background .3s,border-color .3s,transform .3s var(--e),opacity .3s}
+.g-btn{width:100%;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;gap:12px;font-size:14px;font-weight:600;color:#fff;transition:background .25s,border-color .25s,transform .25s var(--e),opacity .25s}
 .g-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
 .lk{font-size:13px;color:var(--mu);text-decoration:underline;justify-self:center}.lk:hover{color:#fff}
 
 /* Профиль пользователя и вкладки библиотеки */
-.pr{display:none;gap:16px}
+.pr{display:none;gap:14px}
 .pr-card{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid var(--bd);background:rgba(255,255,255,.03)}
-.pr-user{display:flex;align-items:center;gap:14px;min-width:0}
+.pr-user{display:flex;align-items:center;gap:14px;min-width:0;cursor:pointer}
 .pr .av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b));border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;font:700 20px Syne,sans-serif;color:#fff;flex:none;overflow:hidden}
 .pr .av img{width:100%;height:100%;object-fit:cover}
 .pr-meta{min-width:0}.pr-meta h4{font:700 17px Syne,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pr-meta p{font-size:12px;color:var(--mu);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-btns{display:flex;gap:8px;flex-wrap:wrap}
 .au.in-u .pr{display:grid}.au.in-u .auth-box{display:none}
 .auth-box{display:grid;gap:16px}
 
@@ -147,13 +151,13 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
 .lib-sec{border-top:1px solid var(--bd);padding-top:18px;display:grid;gap:14px}
 .lib-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .lib-tabs{display:flex;gap:6px;padding:4px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--bd);flex:1;min-width:240px}
-.lib-tab{flex:1;height:36px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;color:var(--mu);display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .3s var(--e)}
+.lib-tab{flex:1;height:36px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;color:var(--mu);display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .25s var(--e)}
 .lib-tab.on{background:#fff;color:#000}
 .lib-tab span{font-size:11px;opacity:.75}
 .lib-clr{font-size:12px;color:var(--mu);padding:6px 10px;border-radius:8px;transition:color .2s,background .2s}
 .lib-clr:hover{color:#fca5a5;background:rgba(244,63,94,.1)}
-.lib-list{display:grid;gap:8px;max-height:270px;overflow-y:auto;padding-right:4px}
-.lib-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:8px 10px;border-radius:14px;border:1px solid var(--bd);background:rgba(255,255,255,.03);transition:background .25s,border-color .25s}
+.lib-list{display:grid;gap:8px;max-height:260px;overflow-y:auto;padding-right:4px}
+.lib-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:8px 10px;border-radius:14px;border:1px solid var(--bd);background:rgba(255,255,255,.03);transition:background .2s,border-color .2s}
 .lib-item:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2)}
 .lib-item img{width:64px;height:42px;border-radius:8px;object-fit:cover;cursor:pointer}
 .lib-info{min-width:0;cursor:pointer}
@@ -173,7 +177,7 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
 #time{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
 .range{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,.2);cursor:pointer}.range.v{width:88px}
 .range::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15)}.range::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#fff}
-#ac{position:absolute;inset:-10%;width:120%;height:120%;filter:blur(40px);opacity:.55;pointer-events:none}
+#ac{position:absolute;inset:-10%;width:120%;height:120%;filter:blur(40px);opacity:.45;pointer-events:none}
 
 /* Загрузка */
 .loading{display:flex;align-items:center;justify-content:center;grid-column:1/-1;min-height:300px}
@@ -226,7 +230,7 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
   .md.pal{padding-top:4vh}
   .au{padding:20px;gap:16px;border-radius:20px}
   .pr-card{flex-direction:column;align-items:stretch;text-align:left}
-  .pr-card .btn{width:100%}
+  .pr-btns .btn{flex:1}
   .vp .sv{display:none}
   .vc{padding:12px 14px 16px}
   .vh{padding:14px 16px}
@@ -244,6 +248,8 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
 <symbol id="heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
 <symbol id="trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14"/></symbol>
 <symbol id="lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="msg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></symbol>
 <symbol id="google" viewBox="0 0 24 24">
   <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
   <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
@@ -298,7 +304,7 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
   <div class="g">
     <div class="ft rv"><b>01</b><h3>4K HDR и Dolby Atmos</h3><p>Максимальное качество изображения и объёмный звук на любом устройстве.</p></div>
     <div class="ft rv" style="--d:1"><b>02</b><h3>Без рекламы</h3><p>Ничто не прерывает просмотр: только вы и фильм.</p></div>
-    <div class="ft rv" style="--d:2"><b>03</b><h3>Новинки каждую неделю</h3><p>Кураторская подборка премьер и признанной классики.</p></div>
+    <div class="ft rv" style="--d:2"><b>03</b><h3>Сообщество киноманов</h3><p>Делитесь рецензиями, оценивайте картины и подписывайтесь на профили друзей.</p></div>
   </div>
 </div></section>
 </main>
@@ -325,7 +331,7 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
   <div class="mh">
     <div>
       <h3 id="at">Вход в CineSearch</h3>
-      <p id="as">Синхронизация избранного и истории просмотров</p>
+      <p id="as">Синхронизация избранного, отзывов и подписок</p>
       <span class="sec-badge" id="sec-status"><svg class="i" style="width:13px;height:13px"><use href="#lock"/></svg><span id="sec-text">Firebase Auth + AES-Stream шифрование</span></span>
     </div>
     <button class="xb" data-close aria-label="Закрыть"><svg class="i"><use href="#x"/></svg></button>
@@ -351,14 +357,17 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
   <!-- Блок профиля (когда пользователь авторизован) -->
   <div class="pr">
     <div class="pr-card">
-      <div class="pr-user">
+      <div class="pr-user" id="open-my-prof" title="Открыть публичную страницу профиля">
         <div class="av" id="pa">U</div>
         <div class="pr-meta">
           <h4 id="pn">Имя</h4>
           <p id="pe"></p>
         </div>
       </div>
-      <button class="btn o sm" id="lo">Выйти</button>
+      <div class="pr-btns">
+        <button class="btn o sm" id="go-prof" type="button"><svg class="i"><use href="#user"/></svg>Профиль</button>
+        <button class="btn o sm" id="lo" type="button">Выйти</button>
+      </div>
     </div>
   </div>
 
@@ -391,7 +400,7 @@ mark{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:0 2px}
 <noscript><style>.rv{opacity:1;transform:none}</style></noscript>
 <script>
 /* =========================================================================
-   1. КОНФИГУРАЦИЯ FIREBASE (ЗАМЕНИТЕ ЗНАЧЕНИЯ НИЖЕ НА СВОИ ИЗ FIREBASE CONSOLE)
+   1. КОНФИГУРАЦИЯ FIREBASE
    ========================================================================= */
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCxCbE_6DuypeZyNZcYj8GNwl8H7qDRy54",
@@ -401,6 +410,7 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "219375122308",
   appId: "1:219375122308:web:bc17f7cc56ce3d613fcfd1"
 };
+window.FIREBASE_CONFIG = FIREBASE_CONFIG;
 
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 
@@ -451,9 +461,7 @@ const CSCrypto=(()=>{
     decrypt(str){
       if(!str||typeof str!=='string')return null;
       try{
-        if(!str.startsWith(PREFIX)){
-          return JSON.parse(str);
-        }
+        if(!str.startsWith(PREFIX))return JSON.parse(str);
         const body=str.slice(PREFIX.length);
         const idx=body.indexOf('$');
         if(idx<0)return null;
@@ -469,23 +477,36 @@ const CSCrypto=(()=>{
   };
 })();
 
-/* ---- ХРАНИЛИЩЕ ПОЛЬЗОВАТЕЛЯ, ИЗБРАННОГО И ИСТОРИИ (С ПРИВЯЗКОЙ К FIREBASE UID) ---- */
-const KEYS={USER:'cinesearch_user',FAV:'cinesearch_favs',HIST:'cinesearch_history'};
+/* ---- ОПТИМИЗИРОВАННОЕ ХРАНИЛИЩЕ С RAM-КЭШЕМ (УСТРАНЯЕТ ЛАГИ ПРИ ЧТЕНИИ) ---- */
+const KEYS={
+  USER:'cinesearch_user',
+  FAV:'cinesearch_favs',
+  HIST:'cinesearch_history',
+  COMMENTS:'cinesearch_comments',
+  PROFILES:'cinesearch_profiles'
+};
+
+const memCache = new Map();
 
 const CSStorage={
   read(k,def=null){
+    if(memCache.has(k))return memCache.get(k);
     try{
       const raw=localStorage.getItem(k);
-      if(!raw)return def;
+      if(!raw){memCache.set(k,def);return def;}
       const val=CSCrypto.decrypt(raw);
+      const res=val!==null?val:def;
+      memCache.set(k,res);
       if(val!==null&&!raw.startsWith('CS_ENC_v1$'))this.write(k,val);
-      return val!==null?val:def;
+      return res;
     }catch{return def;}
   },
   write(k,v){
+    memCache.set(k,v);
     try{localStorage.setItem(k,CSCrypto.encrypt(v));}catch{}
   },
   remove(k){
+    memCache.delete(k);
     try{localStorage.removeItem(k);}catch{}
   },
   favKey(){
@@ -501,7 +522,6 @@ const CSStorage={
     const guestFavs=this.read(KEYS.FAV,[]);
     const guestHist=this.read(KEYS.HIST,[]);
     this.write(KEYS.USER,u);
-    /* Автоматическое слияние гостевого избранного и истории в профиль пользователя при входе */
     if(u?.uid){
       if(guestFavs.length){
         const userFavs=this.read(`${KEYS.FAV}_${u.uid}`,[]);
@@ -515,6 +535,7 @@ const CSStorage={
         guestHist.forEach(gh=>{if(!mergedH.some(x=>Number(x.id)===Number(gh.id)))mergedH.push(gh);});
         this.write(`${KEYS.HIST}_${u.uid}`,mergedH.slice(0,50));
       }
+      this.syncPublicProfile(u);
     }
   },
   delUser(){this.remove(KEYS.USER);},
@@ -523,7 +544,7 @@ const CSStorage={
   toggleFav(m){
     if(!m||!m.id)return false;
     const k=this.favKey();
-    const list=this.read(k,[]);
+    const list=[...this.read(k,[])];
     const idx=list.findIndex(x=>Number(x.id)===Number(m.id));
     let added=false;
     if(idx>=0){
@@ -533,6 +554,8 @@ const CSStorage={
       added=true;
     }
     this.write(k,list.slice(0,100));
+    const u=this.getUser();
+    if(u?.uid)this.syncPublicProfile(u);
     syncFavUI();
     return added;
   },
@@ -540,6 +563,8 @@ const CSStorage={
     const k=this.favKey();
     const list=this.read(k,[]).filter(x=>Number(x.id)!==Number(id));
     this.write(k,list);
+    const u=this.getUser();
+    if(u?.uid)this.syncPublicProfile(u);
     syncFavUI();
   },
   getHistory(){return this.read(this.histKey(),[]);},
@@ -561,44 +586,232 @@ const CSStorage={
   clearHistory(){
     this.write(this.histKey(),[]);
     syncFavUI();
+  },
+
+  /* ---- ПРОФИЛИ КИНОМАНОВ И ПОДПИСКИ ---- */
+  getAllProfiles(){
+    const saved=this.read(KEYS.PROFILES,{});
+    if(!saved['critic_alex']){
+      saved['critic_alex']={
+        uid:'critic_alex',
+        name:'Алексей Кинокритик',
+        bio:'Обожаю авторский сай-фай, нео-нуар и фильмы Дени Вильнёва. Смотрю только в 4K HDR.',
+        photoURL:'',
+        followers:['anna_cinema','max_hdr'],
+        following:['anna_cinema'],
+        favs:[
+          {id:157336,t:'ИНТЕРСТЕЛЛАР',y:'2014',r:'8.4',poster:'/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',a:'#0ea5e9',b:'#1e3a8a'},
+          {id:693134,t:'ДЮНА: ЧАСТЬ ВТОРАЯ',y:'2024',r:'8.3',poster:'/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',a:'#d97706',b:'#7c2d12'},
+          {id:335984,t:'БЕГУЩИЙ ПО ЛЕЗВИЮ 2049',y:'2017',r:'7.6',poster:'/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg',a:'#0284c7',b:'#4f46e5'}
+        ],
+        joinedAt:1740000000000
+      };
+      saved['anna_cinema']={
+        uid:'anna_cinema',
+        name:'Анна Соколова',
+        bio:'Коллекционирую редкие триллеры, драмы и фестивальное кино. Пишу честные обзоры без спойлеров.',
+        photoURL:'',
+        followers:['critic_alex'],
+        following:['critic_alex'],
+        favs:[
+          {id:496243,t:'ПАРАЗИТЫ',y:'2019',r:'8.5',poster:'/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',a:'#0284c7',b:'#4f46e5'},
+          {id:550,t:'БОЙЦОВСКИЙ КЛУБ',y:'1999',r:'8.4',poster:'/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',a:'#2563eb',b:'#1e3a8a'}
+        ],
+        joinedAt:1741000000000
+      };
+      this.write(KEYS.PROFILES,saved);
+    }
+    return saved;
+  },
+  getProfile(uid){
+    if(!uid)return null;
+    const all=this.getAllProfiles();
+    const curU=this.getUser();
+    if(curU&&curU.uid===uid){
+      return this.syncPublicProfile(curU);
+    }
+    return all[uid]||null;
+  },
+  syncPublicProfile(u){
+    if(!u||!u.uid)return null;
+    const all=this.getAllProfiles();
+    const existing=all[u.uid]||{};
+    const favs=this.read(`${KEYS.FAV}_${u.uid}`,[]);
+    const profile={
+      uid:u.uid,
+      name:u.name||existing.name||'Киноман',
+      bio:existing.bio||'Люблю хорошее кино в 4K HDR на CineSearch.',
+      photoURL:u.photoURL||existing.photoURL||'',
+      followers:existing.followers||[],
+      following:existing.following||[],
+      favs:favs,
+      joinedAt:existing.joinedAt||Date.now()
+    };
+    all[u.uid]=profile;
+    this.write(KEYS.PROFILES,all);
+    if(window.CSFirestore?.saveProfile)window.CSFirestore.saveProfile(profile);
+    return profile;
+  },
+  updateBio(uid,bioText){
+    const all=this.getAllProfiles();
+    if(!all[uid])return;
+    all[uid].bio=String(bioText).trim().slice(0,240);
+    this.write(KEYS.PROFILES,all);
+    if(window.CSFirestore?.saveProfile)window.CSFirestore.saveProfile(all[uid]);
+    return all[uid];
+  },
+  toggleFollow(targetUid){
+    const u=this.getUser();
+    if(!u||!u.uid||u.uid===targetUid)return null;
+    const all=this.getAllProfiles();
+    this.syncPublicProfile(u);
+    const me=all[u.uid];
+    const target=all[targetUid]||{uid:targetUid,name:'Киноман',bio:'',photoURL:'',followers:[],following:[],favs:[]};
+    me.following=me.following||[];
+    target.followers=target.followers||[];
+    const idx=me.following.indexOf(targetUid);
+    let subscribed=false;
+    if(idx>=0){
+      me.following.splice(idx,1);
+      target.followers=target.followers.filter(id=>id!==u.uid);
+    }else{
+      me.following.push(targetUid);
+      if(!target.followers.includes(u.uid))target.followers.push(u.uid);
+      subscribed=true;
+    }
+    all[u.uid]=me;
+    all[targetUid]=target;
+    this.write(KEYS.PROFILES,all);
+    if(window.CSFirestore?.saveProfile){
+      window.CSFirestore.saveProfile(me);
+      window.CSFirestore.saveProfile(target);
+    }
+    return {subscribed,followersCount:target.followers.length};
+  },
+
+  /* ---- КОММЕНТАРИИ К ФИЛЬМАМ ---- */
+  getMovieComments(movieId,movieTitle=''){
+    const all=this.read(KEYS.COMMENTS,{});
+    const key=String(movieId);
+    if(!all[key]){
+      all[key]=[
+        {
+          id:'seed_1_'+key,
+          movieId:Number(movieId),
+          movieTitle:movieTitle||'Фильм',
+          uid:'critic_alex',
+          name:'Алексей Кинокритик',
+          photoURL:'',
+          rating:9,
+          text:'Потрясающая операторская работа и глубокий звук. В первом плеере поток идёт без единой задержки!',
+          createdAt:Date.now()-86400000*2,
+          likes:['anna_cinema']
+        },
+        {
+          id:'seed_2_'+key,
+          movieId:Number(movieId),
+          movieTitle:movieTitle||'Фильм',
+          uid:'anna_cinema',
+          name:'Анна Соколова',
+          photoURL:'',
+          rating:10,
+          text:'Картина держит в напряжении с первых минут. Однозначно отправляется в мою коллекцию избранного.',
+          createdAt:Date.now()-3600000*14,
+          likes:['critic_alex']
+        }
+      ];
+      this.write(KEYS.COMMENTS,all);
+    }
+    return all[key];
+  },
+  addComment(movieId,movieTitle,text,rating){
+    const u=this.getUser();
+    if(!u)return null;
+    this.syncPublicProfile(u);
+    const all=this.read(KEYS.COMMENTS,{});
+    const key=String(movieId);
+    const list=all[key]||[];
+    const item={
+      id:'c_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),
+      movieId:Number(movieId),
+      movieTitle:movieTitle||'Фильм',
+      uid:u.uid,
+      name:u.name,
+      photoURL:u.photoURL||'',
+      rating:Number(rating)||10,
+      text:String(text).trim().slice(0,1000),
+      createdAt:Date.now(),
+      likes:[]
+    };
+    list.unshift(item);
+    all[key]=list;
+    this.write(KEYS.COMMENTS,all);
+    if(window.CSFirestore?.addComment)window.CSFirestore.addComment(item);
+    return item;
+  },
+  deleteComment(movieId,commentId){
+    const u=this.getUser();
+    if(!u)return;
+    const all=this.read(KEYS.COMMENTS,{});
+    const key=String(movieId);
+    if(!all[key])return;
+    all[key]=all[key].filter(c=>!(c.id===commentId&&c.uid===u.uid));
+    this.write(KEYS.COMMENTS,all);
+    if(window.CSFirestore?.deleteComment)window.CSFirestore.deleteComment(commentId);
+  },
+  toggleCommentLike(movieId,commentId){
+    const u=this.getUser();
+    if(!u)return null;
+    const all=this.read(KEYS.COMMENTS,{});
+    const key=String(movieId);
+    const list=all[key]||[];
+    const c=list.find(x=>x.id===commentId);
+    if(!c)return null;
+    c.likes=c.likes||[];
+    const idx=c.likes.indexOf(u.uid);
+    if(idx>=0)c.likes.splice(idx,1);
+    else c.likes.push(u.uid);
+    this.write(KEYS.COMMENTS,all);
+    return c;
+  },
+  getUserComments(uid){
+    const all=this.read(KEYS.COMMENTS,{});
+    const res=[];
+    Object.values(all).forEach(arr=>{
+      arr.forEach(c=>{if(c.uid===uid)res.push(c);});
+    });
+    return res.sort((a,b)=>b.createdAt-a.createdAt);
   }
 };
 window.CSStorage=CSStorage;
 
-/* ---- TMDB API ---- */
+/* ---- TMDB API С КЭШИРОВАНИЕМ В ПАМЯТИ ---- */
 const TMDB_KEY='e1a265c9540a7704194b117e4ca0021b';
 const TMDB='https://api.themoviedb.org/3';
 const IMG='https://image.tmdb.org/t/p';
+const apiCache=new Map();
 
 const tmdb=async(path,params={})=>{
   const u=new URL(TMDB+path);
   u.searchParams.set('api_key',TMDB_KEY);
   u.searchParams.set('language','ru');
   Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));
-  const r=await fetch(u);
+  const key=u.toString();
+  if(apiCache.has(key))return apiCache.get(key);
+  const r=await fetch(key);
   if(!r.ok)throw new Error(`TMDB ${r.status}`);
-  return r.json();
+  const data=await r.json();
+  apiCache.set(key,data);
+  return data;
 };
 
 const genreColors={
-  28:['#dc2626','#7f1d1d'],
-  12:['#d97706','#7c2d12'],
-  16:['#0284c7','#1e3a8a'],
-  35:['#7c3aed','#4c1d95'],
-  80:['#0f766e','#064e3b'],
-  99:['#10b981','#065f46'],
-  18:['#2563eb','#1e3a8a'],
-  10751:['#f59e0b','#92400e'],
-  14:['#8b5cf6','#4c1d95'],
-  36:['#b45309','#78350f'],
-  27:['#be123c','#881337'],
-  10402:['#0891b2','#0e7490'],
-  9648:['#4338ca','#312e81'],
-  10749:['#db2777','#9d174d'],
-  878:['#0ea5e9','#1e3a8a'],
-  10770:['#65a30d','#365314'],
-  53:['#0284c7','#4f46e5'],
-  10752:['#dc2626','#7f1d1d'],
+  28:['#dc2626','#7f1d1d'],12:['#d97706','#7c2d12'],16:['#0284c7','#1e3a8a'],
+  35:['#7c3aed','#4c1d95'],80:['#0f766e','#064e3b'],99:['#10b981','#065f46'],
+  18:['#2563eb','#1e3a8a'],10751:['#f59e0b','#92400e'],14:['#8b5cf6','#4c1d95'],
+  36:['#b45309','#78350f'],27:['#be123c','#881337'],10402:['#0891b2','#0e7490'],
+  9648:['#4338ca','#312e81'],10749:['#db2777','#9d174d'],878:['#0ea5e9','#1e3a8a'],
+  10770:['#65a30d','#365314'],53:['#0284c7','#4f46e5'],10752:['#dc2626','#7f1d1d'],
   37:['#d97706','#92400e'],
 };
 const defColors=['#10b981','#047857'];
@@ -631,7 +844,7 @@ const pic=(m,w)=>{
 };
 const bgUrl=m=>m.img?`${IMG}/w1280${m.img}`:(m.poster?`${IMG}/w780${m.poster}`:'');
 
-/* ---- СОСТОЯНИЕ ---- */
+/* ---- СОСТОЯНИЕ И ОПТИМИЗИРОВАННАЯ ПОДСВЕТКА ---- */
 let M=[];
 let catalogM=[];
 let genreMap={};
@@ -640,16 +853,28 @@ let curGenreId=null;
 let activeLibTab='fav';
 
 const amb=$('#amb');
-const tint=m=>{if(!m)return;amb.style.setProperty('--a',m.a||defColors[0]);amb.style.setProperty('--b',m.b||defColors[1])};
+let tintRaf=0,lastA='',lastB='';
+const tint=m=>{
+  if(!m)return;
+  const na=m.a||defColors[0],nb=m.b||defColors[1];
+  if(na===lastA&&nb===lastB)return;
+  cancelAnimationFrame(tintRaf);
+  tintRaf=requestAnimationFrame(()=>{
+    lastA=na;lastB=nb;
+    amb.style.setProperty('--a',na);
+    amb.style.setProperty('--b',nb);
+  });
+};
 const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 /* ---- МОДАЛЬНЫЕ ОКНА ---- */
 let lastF=null;
 const lock=()=>{document.documentElement.style.overflow=$$('.md.open').length?'hidden':''};
-const openM=el=>{lastF=document.activeElement;el.classList.add('open');lock();setTimeout(()=>$('input:not([hidden]),button',el)?.focus({preventScroll:true}),60)};
+const openM=el=>{lastF=document.activeElement;el.classList.add('open');lock();setTimeout(()=>$('input:not([hidden]),button',el)?.focus({preventScroll:true}),50)};
 const vd=$('#vd'),pm=$('#pm');
 const closeM=el=>{if(!el.classList.contains('open'))return;if(el===pm){vd.pause();document.fullscreenElement&&document.exitFullscreen()}el.classList.remove('open');lock();lastF?.focus?.({preventScroll:true})};
 $$('.md').forEach(md=>{md.addEventListener('mousedown',e=>{if(e.target===md)closeM(md)});$$('[data-close]',md).forEach(b=>b.onclick=()=>closeM(md))});
+window.openM=openM;window.closeM=closeM;
 
 /* ---- HERO ---- */
 const layers=$$('.layer');let cur=0,li=0,bgT=0,timer;
@@ -674,12 +899,12 @@ function pick(i){
   $('#h-m').innerHTML=`<span class="rt">★ ${m.r} TMDB</span><span>${m.y}</span><span>${genreName}</span><span>4K HDR</span>`;
   updateHeroFavBtn();
   $('#nx').innerHTML=[1,2,3].map(k=>{const n=M[(cur+k)%M.length];const ng=n.tags.length?(genreMap[n.tags[0]]||''):'';
-    return `<button class="row" data-i="${(cur+k)%M.length}"><img src="${pic(n,256)}" width="120" height="76" alt=""><span><b>${n.t}</b><small>${ng} · ${n.y}</small></span><span class="rt">★ ${n.r}</span></button>`}).join('');
+    return `<button class="row" data-i="${(cur+k)%M.length}"><img src="${pic(n,256)}" width="120" height="76" loading="lazy" decoding="async" alt=""><span><b>${n.t}</b><small>${ng} · ${n.y}</small></span><span class="rt">★ ${n.r}</span></button>`}).join('');
   $$('.dot').forEach((d,k)=>d.classList.toggle('on',k===cur));
-  if(!rm)$$('.st').forEach((el,n)=>el.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:700,delay:n*70,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'}));
+  if(!rm)$$('.st').forEach((el,n)=>el.animate([{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:550,delay:n*55,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'}));
   clearTimeout(timer);if(!rm)timer=setTimeout(auto,9000);
 }
-function auto(){($$('.md.open').length||document.hidden)?timer=setTimeout(auto,3000):pick(cur+1)}
+function auto(){($$('.md.open').length||document.hidden||$('main').hidden)?timer=setTimeout(auto,4000):pick(cur+1)}
 ['#dots','#nx'].forEach(s=>$(s).addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b)pick(+b.dataset.i)}));
 $('#h-w').onclick=()=>M.length&&play(M[cur]);
 $('#h-tr').onclick=()=>M.length&&play(M[cur],1);
@@ -731,9 +956,10 @@ $('#chips').addEventListener('click',e=>{
 });
 
 function grid(){
+  const favSet=new Set(CSStorage.getFavs().map(x=>Number(x.id)));
   $('#cards').innerHTML=catalogM.map((m,i)=>{
     const genreName=m.tags.length?(genreMap[m.tags[0]]||'Кино'):'Кино';
-    const isF=CSStorage.isFav(m.id);
+    const isF=favSet.has(Number(m.id));
     return `<article class="card" style="--i:${i}" data-id="${m.id}" tabindex="0" role="button" aria-label="Смотреть ${m.t}">
       <img src="${pic(m,720)}" width="720" height="495" loading="lazy" decoding="async" alt="">
       <div class="ci">
@@ -769,19 +995,29 @@ cg.addEventListener('click',e=>{
   if(c)play(catalogM.find(m=>m.id==c.dataset.id)||catalogM[0]);
 });
 cg.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){if(e.target.closest('[data-fav]'))return;const c=e.target.closest('.card');if(c){e.preventDefault();play(catalogM.find(m=>m.id==c.dataset.id)||catalogM[0])}}});
-cg.addEventListener('mouseover',e=>{const c=e.target.closest('.card');if(c){const m=catalogM.find(x=>x.id==c.dataset.id);if(m)tint(m)}});
-cg.addEventListener('mouseleave',()=>M.length&&tint(M[cur]));
 
-/* ---- СИНХРОНИЗАЦИЯ ИЗБРАННОГО И ИСТОРИИ В ИНТЕРФЕЙСЕ ---- */
+let hoverId=0;
+cg.addEventListener('mouseover',e=>{
+  const c=e.target.closest('.card');
+  if(c&&+c.dataset.id!==hoverId){
+    hoverId=+c.dataset.id;
+    const m=catalogM.find(x=>x.id===hoverId);
+    if(m)tint(m);
+  }
+},{passive:true});
+cg.addEventListener('mouseleave',()=>{hoverId=0;M.length&&tint(M[cur]);},{passive:true});
+
+/* ---- СИНХРОНИЗАЦИЯ ИЗБРАННОГО И ИСТОРИИ ---- */
 function syncFavUI(){
   const favs=CSStorage.getFavs();
+  const favSet=new Set(favs.map(x=>Number(x.id)));
   const bdg=$('#fav-bdg');
   if(bdg){
     bdg.textContent=favs.length;
     bdg.hidden=favs.length===0;
   }
   $$('[data-fav]').forEach(btn=>{
-    const on=CSStorage.isFav(+btn.dataset.fav);
+    const on=favSet.has(+btn.dataset.fav);
     btn.classList.toggle('on',on);
     btn.setAttribute('aria-label',on?'Убрать из избранного':'В избранное');
   });
@@ -812,7 +1048,7 @@ function renderLibList(){
   box.innerHTML=list.map(m=>{
     const genreName=(m.tags&&m.tags.length&&genreMap[m.tags[0]])?genreMap[m.tags[0]]:'Кино';
     return `<div class="lib-item" data-mid="${m.id}">
-      <img src="${pic(m,185)}" width="64" height="42" loading="lazy" alt="">
+      <img src="${pic(m,185)}" width="64" height="42" loading="lazy" decoding="async" alt="">
       <div class="lib-info">
         <b>${m.t}</b>
         <small>${m.y||'—'} · ${genreName} · ★ ${m.r||'—'}</small>
@@ -856,6 +1092,17 @@ $('#lib-list').addEventListener('click',e=>{
   }
 });
 
+/* Переход на публичную страницу собственного профиля */
+const goMyProfile=()=>{
+  const u=CSStorage.getUser();
+  if(!u||!u.uid)return;
+  CSStorage.syncPublicProfile(u);
+  closeM($('#auth'));
+  location.hash=`#/user/${encodeURIComponent(u.uid)}`;
+};
+$('#go-prof').onclick=goMyProfile;
+$('#open-my-prof').onclick=goMyProfile;
+
 /* ---- ПОИСК ---- */
 let sel=0,res=[];const pq=$('#pq'),pls=$('#pls');
 let searchTimer=null;
@@ -879,14 +1126,14 @@ async function search(q=''){
     }catch(e){
       pls.innerHTML='<div class="em"><b>Ошибка поиска</b>Проверьте подключение</div>';
     }
-  },350);
+  },300);
 }
 
 function renderSearchResults(list,q=''){
   const hl=t=>{const lq=q.toLowerCase();const i=q?t.toLowerCase().indexOf(lq):-1;return i<0?t:`${t.slice(0,i)}<mark>${t.slice(i,i+q.length)}</mark>${t.slice(i+q.length)}`};
   pls.innerHTML=list.length?list.map((m,i)=>{
     const genreName=m.tags.length?(genreMap[m.tags[0]]||'Кино'):'Кино';
-    return `<div class="it${i===0?' sel':''}" data-i="${i}"><img src="${pic(m,144)}" width="72" height="45" loading="lazy" alt=""><div><b>${hl(m.t)}</b><small>${hl(m.y)} · ${genreName}</small></div><span class="rt">★ ${m.r}</span></div>`;
+    return `<div class="it${i===0?' sel':''}" data-i="${i}"><img src="${pic(m,144)}" width="72" height="45" loading="lazy" decoding="async" alt=""><div><b>${hl(m.t)}</b><small>${hl(m.y)} · ${genreName}</small></div><span class="rt">★ ${m.r}</span></div>`;
   }).join(''):`<div class="em"><b>Ничего не найдено</b>Попробуйте другое название или жанр</div>`;
 }
 
@@ -895,11 +1142,11 @@ const openSearch=()=>{pq.value='';res=catalogM.slice(0,10);search();openM($('#pa
 $('#sb').onclick=openSearch;
 pq.addEventListener('input',()=>search(pq.value));
 pq.addEventListener('keydown',e=>{if(!res.length)return;if(e.key==='ArrowDown'){e.preventDefault();mark(sel+1)}else if(e.key==='ArrowUp'){e.preventDefault();mark(sel-1)}else if(e.key==='Enter'){closeM($('#pal'));play(res[sel])}});
-pls.addEventListener('mousemove',e=>{const it=e.target.closest('.it');if(it&&+it.dataset.i!==sel)mark(+it.dataset.i)});
+pls.addEventListener('mousemove',e=>{const it=e.target.closest('.it');if(it&&+it.dataset.i!==sel)mark(+it.dataset.i)},{passive:true});
 pls.addEventListener('click',e=>{const it=e.target.closest('.it');if(it){closeM($('#pal'));play(res[+it.dataset.i])}});
 
 /* =========================================================================
-   2. FIREBASE AUTHENTICATION (MODULAR SDK v11 + FALLBACK)
+   2. FIREBASE AUTHENTICATION + CLOUD FIRESTORE (MODULAR SDK v11)
    ========================================================================= */
 let reg=false;
 let fbAuth=null;
@@ -911,7 +1158,6 @@ const isFirebaseConfigured=()=>{
          !FIREBASE_CONFIG.projectId.includes('ВАШ_');
 };
 
-/* Перевод кодов ошибок Firebase Auth на русский язык */
 function formatFirebaseError(err){
   const code=err?.code||'';
   const map={
@@ -947,17 +1193,18 @@ function authUI(){
       av.textContent=(u.name||'U').charAt(0).toUpperCase();
     }
     $('#at').textContent='Личный кабинет';
-    $('#as').textContent='Сессия защищена Firebase Auth и AES-Stream';
+    $('#as').textContent='Нажмите «Профиль», чтобы открыть вашу публичную страницу';
   }else{
     setMode(reg);
   }
   syncFavUI();
 }
+window.authUI=authUI;
 
 function setMode(r){
   reg=r;
   $('#at').textContent=r?'Создать аккаунт':'Вход в CineSearch';
-  $('#as').textContent=r?'Регистрация в Firebase займёт меньше минуты':'Войдите, чтобы синхронизировать коллекцию';
+  $('#as').textContent=r?'Регистрация в Firebase займёт меньше минуты':'Войдите, чтобы оставлять отзывы и подписываться';
   $('#asb').textContent=r?'Создать аккаунт':'Войти';
   $('#nf').hidden=!r;
   $('#asw').textContent=r?'Есть аккаунт? Войти':'Нет аккаунта? Зарегистрироваться';
@@ -969,12 +1216,8 @@ function setAuthLoading(busy){
   $('#g-login').disabled=busy;
 }
 
-/* Асинхронная загрузка Firebase Modular SDK v11 */
 async function initFirebaseAuth(){
-  if(!isFirebaseConfigured()){
-    $('#sec-text').textContent='Локальное шифрование (укажите ключи FIREBASE_CONFIG)';
-    return;
-  }
+  if(!isFirebaseConfigured())return;
   try{
     const [{ initializeApp }, authMod] = await Promise.all([
       import('https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'),
@@ -986,7 +1229,55 @@ async function initFirebaseAuth(){
     fbMethods = authMod;
     $('#sec-text').textContent='Firebase Auth активен · Данные зашифрованы';
 
-    /* Слушатель состояния сессии Firebase */
+    /* Подключение Cloud Firestore для синхронизации комментариев и профилей */
+    import('https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js').then(fs=>{
+      const db=fs.getFirestore(app);
+      window.CSFirestore={
+        async saveProfile(prof){
+          try{await fs.setDoc(fs.doc(db,'profiles',String(prof.uid)),prof,{merge:true});}catch{}
+        },
+        async fetchProfile(uid){
+          try{
+            const snap=await fs.getDoc(fs.doc(db,'profiles',String(uid)));
+            if(snap.exists()){
+              const d=snap.data();
+              const all=CSStorage.getAllProfiles();
+              all[uid]=d;
+              CSStorage.write(KEYS.PROFILES,all);
+              return d;
+            }
+          }catch{}
+          return null;
+        },
+        async addComment(c){
+          try{await fs.setDoc(fs.doc(db,'comments',String(c.id)),c);}catch{}
+        },
+        async deleteComment(id){
+          try{await fs.deleteDoc(fs.doc(db,'comments',String(id)));}catch{}
+        },
+        async fetchMovieComments(movieId){
+          try{
+            const q=fs.query(fs.collection(db,'comments'),fs.where('movieId','==',Number(movieId)));
+            const snap=await fs.getDocs(q);
+            const remote=[];
+            snap.forEach(doc=>remote.push(doc.data()));
+            if(remote.length){
+              const all=CSStorage.read(KEYS.COMMENTS,{});
+              const k=String(movieId);
+              const loc=all[k]||[];
+              const merged=[...loc];
+              remote.forEach(rc=>{if(!merged.some(x=>x.id===rc.id))merged.push(rc);});
+              merged.sort((a,b)=>b.createdAt-a.createdAt);
+              all[k]=merged;
+              CSStorage.write(KEYS.COMMENTS,all);
+              return merged;
+            }
+          }catch{}
+          return null;
+        }
+      };
+    }).catch(()=>{});
+
     authMod.onAuthStateChanged(fbAuth, (fbUser) => {
       if(fbUser){
         const providerId = fbUser.providerData?.[0]?.providerId || 'email';
@@ -1003,9 +1294,10 @@ async function initFirebaseAuth(){
         CSStorage.delUser();
       }
       authUI();
+      if(typeof window.refreshSocialUI==='function')window.refreshSocialUI();
     });
   }catch(e){
-    console.warn('Не удалось инициализировать Firebase SDK, используется локальный режим:', e);
+    console.warn('Используется локальный режим:', e);
   }
 }
 
@@ -1013,7 +1305,6 @@ $('#ab').onclick=()=>{authUI();openM($('#auth'))};
 $('#lib-btn').onclick=()=>{authUI();openM($('#auth'))};
 $('#asw').onclick=()=>setMode(!reg);
 
-/* Вход и Регистрация по Email / Паролю */
 $('#af').addEventListener('submit',async e=>{
   e.preventDefault();
   $('#er').textContent='';
@@ -1021,7 +1312,6 @@ $('#af').addEventListener('submit',async e=>{
   if(!/^\S+@\S+\.\S+$/.test(em))return $('#er').textContent='Введите корректный email';
   if(pw.length<6)return $('#er').textContent='Пароль — минимум 6 символов';
 
-  /* Если Firebase подключён — используем реальный Firebase Auth */
   if(fbAuth&&fbMethods){
     setAuthLoading(true);
     try{
@@ -1042,6 +1332,7 @@ $('#af').addEventListener('submit',async e=>{
       }
       $('#af').reset();
       authUI();
+      if(typeof window.refreshSocialUI==='function')window.refreshSocialUI();
     }catch(err){
       $('#er').textContent=formatFirebaseError(err);
     }finally{
@@ -1050,7 +1341,6 @@ $('#af').addEventListener('submit',async e=>{
     return;
   }
 
-  /* Резервный локальный режим (пока не вставлены ключи FIREBASE_CONFIG) */
   CSStorage.setUser({
     uid:'local_'+btoa(em).replace(/=/g,''),
     email:em,
@@ -1060,9 +1350,9 @@ $('#af').addEventListener('submit',async e=>{
   });
   $('#af').reset();
   authUI();
+  if(typeof window.refreshSocialUI==='function')window.refreshSocialUI();
 });
 
-/* Вход через Google (Firebase GoogleAuthProvider + signInWithPopup) */
 $('#g-login').addEventListener('click',async()=>{
   $('#er').textContent='';
   if(fbAuth&&fbMethods){
@@ -1073,6 +1363,7 @@ $('#g-login').addEventListener('click',async()=>{
       await fbMethods.signInWithPopup(fbAuth, provider);
       $('#af').reset();
       authUI();
+      if(typeof window.refreshSocialUI==='function')window.refreshSocialUI();
     }catch(err){
       $('#er').textContent=formatFirebaseError(err);
     }finally{
@@ -1081,7 +1372,6 @@ $('#g-login').addEventListener('click',async()=>{
     return;
   }
 
-  /* Резервный локальный вход (пока не вставлены ключи FIREBASE_CONFIG) */
   CSStorage.setUser({
     uid:'google_demo_uid',
     email:'cinema.user@gmail.com',
@@ -1090,15 +1380,16 @@ $('#g-login').addEventListener('click',async()=>{
     loginAt:Date.now()
   });
   authUI();
+  if(typeof window.refreshSocialUI==='function')window.refreshSocialUI();
 });
 
-/* Выход из аккаунта */
 $('#lo').onclick=async()=>{
   if(fbAuth&&fbMethods){
     try{await fbMethods.signOut(fbAuth);}catch{}
   }
   CSStorage.delUser();
   authUI();
+  if(typeof window.refreshSocialUI==='function')window.refreshSocialUI();
 };
 
 /* ---- РЕЗЕРВНЫЙ МОДАЛЬНЫЙ ПЛЕЕР ---- */
@@ -1106,7 +1397,7 @@ const ctx=$('#ac').getContext('2d'),pp=$('#pp'),sk=$('#sk'),vl=$('#vl'),bf=$('#b
 let raf=0,last=0,seeking=false;
 const fmt=t=>isFinite(t)?`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`:'0:00';
 const paint=el=>{const p=(el.value-el.min)/(el.max-el.min)*100;el.style.background=`linear-gradient(90deg,#fff ${p}%,rgba(255,255,255,.2) ${p}%)`};
-function loop(t){if(vd.paused||vd.ended){raf=0;return}if(t-last>66){last=t;try{ctx.drawImage(vd,0,0,32,18)}catch{}}raf=requestAnimationFrame(loop)}
+function loop(t){if(vd.paused||vd.ended){raf=0;return}if(t-last>100){last=t;try{ctx.drawImage(vd,0,0,32,18)}catch{}}raf=requestAnimationFrame(loop)}
 const spin=()=>{bf.innerHTML='<div class="sp"></div>';bf.classList.add('on')};
 function play(m,trailer){
   if(!m)return;
@@ -1131,15 +1422,26 @@ vl.addEventListener('input',()=>{vd.volume=vl.value;vd.muted=false;paint(vl)});
 $('#mu').onclick=()=>{vd.muted=!vd.muted};
 $('#fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():pm.requestFullscreen?.();
 
-/* ---- ГЛОБАЛЬНЫЕ СОБЫТИЯ ---- */
+/* ---- ГЛОБАЛЬНЫЕ СОБЫТИЯ (С rAF-ТРОТТЛИНГОМ СКРОЛЛА) ---- */
 document.addEventListener('keydown',e=>{
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSearch();return}
   const top=$$('.md.open').pop();if(!top)return;
   if(e.key==='Escape')closeM(top);
-  else if(e.code==='Space'&&top===pm&&!/INPUT|BUTTON/.test(e.target.tagName)){e.preventDefault();toggle()}
+  else if(e.code==='Space'&&top===pm&&!/INPUT|BUTTON|TEXTAREA/.test(e.target.tagName)){e.preventDefault();toggle()}
 });
-addEventListener('scroll',()=>$('#nav').classList.toggle('s',scrollY>40),{passive:true});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+
+let scrollTick=false;
+addEventListener('scroll',()=>{
+  if(!scrollTick){
+    requestAnimationFrame(()=>{
+      $('#nav').classList.toggle('s',scrollY>40);
+      scrollTick=false;
+    });
+    scrollTick=true;
+  }
+},{passive:true});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 $$('.rv').forEach(el=>io.observe(el));
 paint(sk);paint(vl);authUI();initFirebaseAuth();
 
@@ -1165,7 +1467,7 @@ async function init(){
 
 init();
 </script>
-<!-- Страница фильма и провайдеры -->
+<!-- Страница фильма, комментарии, публичные профили и провайдеры -->
 <script src="player.js"></script>
 </body>
 </html>
